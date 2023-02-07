@@ -5,7 +5,7 @@ LABEL maintainer "Raka Purusadhikara Putra"
 ENV TZ=Asia/Jakarta
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ARG SONARQUBE_SCANNER_CLI_VERSION="4.6.0.2311"
+ARG SONARQUBE_SCANNER_CLI_VERSION="4.8.0.2856"
 
 ENV SONARQUBE_SCANNER_HOME /opt/sonar-scanner-${SONARQUBE_SCANNER_CLI_VERSION}-linux
 ENV SONARQUBE_SCANNER_BIN ${SONARQUBE_SCANNER_HOME}/bin

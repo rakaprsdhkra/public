@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#Variables
+
+COMMAND1="curl -L -X POST"
+COMMAND2=" --data-urlencode "
+
+if [ -z ${NOTIFY_PARAMETER_1} ]; then
+        echo "No WhatsApp Group. Exiting" >&2
+        exit 2
+else
+        group="${NOTIFY_PARAMETER_1}"
+fi
+
+#Send message to WhatsApp
+
+$COMMAND1 "{whatsapp-api-key}" $COMMAND2 "name=$group" $COMMAND2 "message=Host: ${NOTIFY_HOSTNAME}
+Address: ${NOTIFY_HOSTADDRESS}
+State: From *${NOTIFY_LASTSERVICESTATE}* to *${NOTIFY_SERVICESTATE}*
+Time: ${NOTIFY_SHORTDATETIME}
+Info: ${NOTIFY_SERVICEOUTPUT}"

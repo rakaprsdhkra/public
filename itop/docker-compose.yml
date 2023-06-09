@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  itop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+      - PHP_TIMEZONE=${PHP_TIMEZONE}
+      - PHP_ENABLE_UPLOADS=${PHP_ENABLE_UPLOADS}
+      - PHP_MEMORY_LIMIT=${PHP_MEMORY_LIMIT}
+      - PHP_POST_MAX_SIZE=${PHP_POST_MAX_SIZE}
+      - PHP_UPLOAD_MAX_FILESIZE=${PHP_UPLOAD_MAX_FILESIZE}
+      - PHP_MAX_FILE_UPLOADS=${PHP_MAX_FILE_UPLOADS}
+      - PHP_MAX_INPUT_TIME=${PHP_MAX_INPUT_TIME}
+      - PHP_LOG_ERRORS=${PHP_LOG_ERRORS}
+      - PHP_ERROR_REPORTING=${PHP_ERROR_REPORTING}
+    restart: always
+    stdin_open: true
+    networks:
+      - mynetwork
+    environment:
+      - ITOP_DB_HOST=${ITOP_DB_HOST}
+      - ITOP_DB_NAME=${ITOP_DB_NAME}
+      - ITOP_DB_USER=${ITOP_DB_USER}
+      - ITOP_DB_PASS=${ITOP_DB_PASS}
+      - PHP_TIMEZONE=${PHP_TIMEZONE}
+      - PHP_ENABLE_UPLOADS=${PHP_ENABLE_UPLOADS}
+      - PHP_MEMORY_LIMIT=${PHP_MEMORY_LIMIT}
+      - PHP_POST_MAX_SIZE=${PHP_POST_MAX_SIZE}
+      - PHP_UPLOAD_MAX_FILESIZE=${PHP_UPLOAD_MAX_FILESIZE}
+      - PHP_MAX_FILE_UPLOADS=${PHP_MAX_FILE_UPLOADS}
+      - PHP_MAX_INPUT_TIME=${PHP_MAX_INPUT_TIME}
+      - PHP_LOG_ERRORS=${PHP_LOG_ERRORS}
+      - PHP_ERROR_REPORTING=${PHP_ERROR_REPORTING}
+    ports:
+      - "8080:80"
+    volumes:
+      - ./volumes/itop/conf:/var/www/itop/conf
+      - ./volumes/itop/data:/var/www/itop/data
+      - ./volumes/itop/log:/var/www/itop/log
+      - ./volumes/itop/env-production:/var/www/itop/env-production
+      - ./volumes/itop/env-production-build:/var/www/itop/env-production-build
+      - ./extensions:/var/www/itop/extensions
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+networks:
+  mynetwork:
+    driver: bridge
